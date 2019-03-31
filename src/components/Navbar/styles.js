@@ -1,4 +1,6 @@
 import { screenSizes, colorPalletes } from '../../constants'
+import { lighten, darken } from '../../utils/color'
+import { transitions } from '../../constants'
 
 const styles = {
   navbar: ({ $themeNumber }) => {
@@ -20,6 +22,36 @@ const styles = {
     height: '100%',
     paddingLeft: '5rem',
     paddingRight: '5rem'
+  },
+  secondaryButton: ({ $themeNumber }) => {
+    return {
+      borderColor: colorPalletes[$themeNumber].secondaryColor,
+      backgroundColor: colorPalletes[$themeNumber].secondaryColor,
+      color: colorPalletes[$themeNumber].quinaryColor,
+      ':hover': {
+        backgroundColor: lighten(
+          colorPalletes[$themeNumber].secondaryColor,
+          0.3
+        ),
+        borderColor: lighten(colorPalletes[$themeNumber].secondaryColor, 0.3)
+      },
+
+      ':focus': {
+        backgroundColor: darken(
+          colorPalletes[$themeNumber].secondaryColor,
+          0.1
+        ),
+        borderColor: darken(colorPalletes[$themeNumber].secondaryColor, 0.1)
+      },
+
+      ':active': {
+        backgroundColor: darken(
+          colorPalletes[$themeNumber].secondaryColor,
+          0.2
+        ),
+        borderColor: darken(colorPalletes[$themeNumber].secondaryColor, 0.2)
+      }
+    }
   }
 }
 

@@ -2,6 +2,11 @@ import React, { PureComponent } from 'react'
 import styles from './styles'
 import { styled } from 'styletron-react'
 import PrimaryButton from '../Button/PrimaryButton'
+import {
+  primaryButton,
+  secondaryButton,
+  tertiaryButton
+} from '../Button/buttonStyles'
 
 const Form = styled('form', styles.form)
 const Field = styled('label', styles.field)
@@ -54,7 +59,7 @@ export default class UploadForm extends PureComponent {
         </Row>
         <Row style={{ justifyContent: 'center' }}>
           <Field>
-            <PrimaryButton themeNumber={themeNumber} $as={'a'}>
+            <PrimaryButton style={primaryButton(themeNumber)} $as={'a'}>
               Upload
             </PrimaryButton>
             <input
@@ -67,7 +72,7 @@ export default class UploadForm extends PureComponent {
           </Field>
         </Row>
         <Row style={{ justifyContent: 'center' }}>
-          <PrimaryButton themeNumber={themeNumber} type={'submit'}>
+          <PrimaryButton style={secondaryButton(themeNumber)} type={'submit'}>
             Submit Image
           </PrimaryButton>
         </Row>
