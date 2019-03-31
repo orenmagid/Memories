@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-
+import { colorPalletes } from '../constants'
 export default class Images extends Component {
   renderImages = () => {
-    const { images } = this.props
+    const { images, themeNumber } = this.props
     return images.map((image, i) => {
       return (
         <div
@@ -15,7 +15,7 @@ export default class Images extends Component {
             height: '250px',
             width: '400px',
             margin: '.5rem',
-            border: '1px solid black',
+            border: `1px solid ${colorPalletes[themeNumber].primaryColor}`,
             borderRadius: '.25rem'
           }}
         />

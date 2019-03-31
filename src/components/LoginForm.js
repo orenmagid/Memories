@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 class LoginForm extends React.Component {
   render() {
-    const { handleLogin, createNewUser } = this.props
+    const { handleLogin, createNewUser, themeNumber } = this.props
     return (
       <React.Fragment>
         <div>

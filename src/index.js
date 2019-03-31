@@ -1,14 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router } from 'react-router-dom'
-import './index.css'
-import App from './App'
+import { Provider as StyletronProvider } from 'styletron-react'
+import { Client as Styletron } from 'styletron-engine-atomic'
+import App from './containers/App'
 import * as serviceWorker from './serviceWorker'
 
+const engine = new Styletron()
+
 ReactDOM.render(
-  <Router>
-    <App />
-  </Router>,
+  <StyletronProvider value={engine}>
+    <Router>
+      <App />
+    </Router>
+  </StyletronProvider>,
   document.getElementById('root')
 )
 

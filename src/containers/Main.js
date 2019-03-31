@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react'
 import { baseUrl } from '../constants'
 import UploadForm from '../components/UploadForm'
 import Images from '../components/Images'
+import { themeColors } from '../constants'
+
 export default class Main extends PureComponent {
   state = { file: null, images: [] }
 
@@ -82,14 +84,16 @@ export default class Main extends PureComponent {
   }
 
   render() {
+    const { themeNumber } = this.props
     const { images } = this.state
     return (
       <>
         <UploadForm
+          themeNumber={themeNumber}
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
         />
-        <Images images={images} />
+        <Images images={images} themeNumber={themeNumber} />
       </>
     )
   }

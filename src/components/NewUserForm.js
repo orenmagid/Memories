@@ -3,7 +3,7 @@ import { Redirect } from 'react-router-dom'
 
 export default class NewUserForm extends Component {
   render() {
-    let { handleCreateOrEditUser } = this.props
+    let { handleCreateOrEditUser, themeNumber } = this.props
 
     let token = localStorage.getItem('token')
     if (token) {

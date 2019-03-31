@@ -1,13 +1,18 @@
 import React, { Component } from 'react'
-import { Route, Redirect } from 'react-router-dom'
-import NavBar from './components/Navbar'
-import LoginForm from './components/LoginForm'
-import NewUserForm from './components/NewUserForm'
-import Main from './containers/Main'
-import { baseUrl } from './constants'
+import { Route } from 'react-router-dom'
+import NavBar from '../../components/Navbar'
+import LoginForm from '../../components/LoginForm'
+import NewUserForm from '../../components/NewUserForm'
+import Main from '../Main'
+import { baseUrl } from '../../constants'
+import { styled } from 'styletron-react'
+import styles from './styles.js'
+
+const MainContainer = styled('div', styles.main)
+const Content = styled('div', styles.content)
 
 class App extends Component {
-  state = { error: '' }
+  state = { error: '', themeNumber: 3 }
 
   handleCreateUser = e => {
     e.preventDefault()
@@ -88,7 +93,12 @@ class App extends Component {
     localStorage.clear()
   }
 
+  handleSelectTheme = selectedThemeNumber => {
+    this.setState({ themeNumber: selectedThemeNumber })
+  }
+
   render() {
+    const { themeNumber } = this.state
     // if (
     //   localStorage.getItem('token') &&
     //   window.location.href.includes('login')
@@ -96,31 +106,21 @@ class App extends Component {
     //   return <Redirect to="/" />
     // }
     return (
-      <div>
+      <MainContainer>
         <NavBar
-          displayNewUserForm={this.state.displayNewUserForm}
-          createNewUser={this.createNewUser}
+          themeNumber={themeNumber}
+          handleSelectTheme={this.handleSelectTheme}
           handleLogin={this.handleLogin}
           handleLogout={this.handleLogout}
         />
 
-        <div
-          style={{
-            width: '100%',
-            paddingLeft: '1rem',
-            paddingRight: '1rem',
-            marginLeft: 'auto',
-            marginRight: 'auto',
-            marginTop: '2rem',
-            maxWidth: `$1200px`,
-            textAlign: 'center'
-          }}
-        >
+        <Content>
           <Route
             exact
             path="/new_user"
             render={routerProps => (
               <NewUserForm
+                themeNumber={themeNumber}
                 handleCreateOrEditUser={this.handleCreateUser}
                 displayNewUserForm={this.state.displayNewUserForm}
               />
@@ -131,6 +131,7 @@ class App extends Component {
               path="/login"
               render={routerProps => (
                 <LoginForm
+                  themeNumber={themeNumber}
                   createNewUser={this.createNewUser}
                   handleLogin={this.handleLogin}
                 />
@@ -138,10 +139,13 @@ class App extends Component {
             />
           )}
           {localStorage.getItem('token') ? (
-            <Route path="/" render={routerProps => <Main />} />
+            <Route
+              path="/"
+              render={routerProps => <Main themeNumber={themeNumber} />}
+            />
           ) : null}
-        </div>
-      </div>
+        </Content>
+      </MainContainer>
     )
   }
 }
