@@ -5,6 +5,28 @@ import Images from '../components/Images'
 export default class Main extends PureComponent {
   state = { file: null, images: [] }
 
+  componentDidMount() {
+    this.fetchImages()
+  }
+
+  fetchImages = () => {
+    let token = localStorage.getItem('token')
+    if (token) {
+      fetch(baseUrl + '/images', {
+        method: 'Get',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          Authorization: `Bearer ${token}`
+        }
+      })
+        .then(res => res.json())
+        .then(images => {
+          this.setState({ images })
+        })
+    }
+  }
+
   handleSubmit = e => {
     e.preventDefault()
     const { file } = this.state
@@ -33,7 +55,9 @@ export default class Main extends PureComponent {
       })
         .then(res => res.json())
         .then(image => {
-          console.log('TCL: Main -> image', image)
+          const { images } = this.state
+          const newImages = images.push(image)
+          this.setState({ newImages })
         })
     }
   }
@@ -65,7 +89,7 @@ export default class Main extends PureComponent {
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
         />
-        <Images />
+        <Images images={images} />
       </>
     )
   }

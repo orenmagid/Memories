@@ -1,37 +1,8 @@
 import React, { Component } from 'react'
-import { baseUrl } from '../constants'
 
 export default class Images extends Component {
-  state = { images: [] }
-
-  componentDidMount() {
-    this.fetchImages()
-  }
-
-  componentDidUpdate() {
-    this.fetchImages()
-  }
-
-  fetchImages = () => {
-    let token = localStorage.getItem('token')
-    if (token) {
-      fetch(baseUrl + '/images', {
-        method: 'Get',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(images => {
-          this.setState({ images })
-        })
-    }
-  }
-
   renderImages = () => {
-    const { images } = this.state
+    const { images } = this.props
     return images.map((image, i) => {
       return (
         <div
